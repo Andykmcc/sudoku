@@ -3,13 +3,14 @@
 var utilities = require('./utilities');
 
 module.exports = (function(){
+  var gridSize = 9;
   var sudoku = document.querySelector('.js-sudoku');
 
   sudoku.addEventListener('submit', function(event){
     event.preventDefault();
-    utilities.checkSudoku(event.target);
-  }, false);
-  
+    utilities.checkSudoku(event.target, gridSize);
+  });
+
 })();
 },{"./utilities":2}],2:[function(require,module,exports){
 'use strict';
@@ -27,7 +28,7 @@ module.exports = {
       var inputs = row.querySelectorAll('.js-input-number');
       for(var j = 0, k = inputs.length; j < k; j++){
         var input = inputs[j];
-        rowArr.push(input.value);
+        rowArr.push(parseInt(input.value, 10));
       }
       sudokuArr.push(rowArr);
     }
@@ -35,10 +36,10 @@ module.exports = {
     return sudokuArr;
   },
 
-  checkSudoku: function(sudoku){
+  checkSudoku: function(sudoku, gridSize){
     var sudokuArr = this.convertTableToArray(sudoku);
 
-    if(validateSudoku.validate(sudokuArr)){
+    if(validateSudoku.validate(sudokuArr, gridSize)){
       this.removeClass(sudoku, 'has-error');
     }
     else{
@@ -99,7 +100,7 @@ module.exports = {
 
   checkSet: function(set, gridSize){
     if(set.length !== gridSize) return false;
-    if(! this.isSetTotalCorrect(set, gridSize)) return false;
+    if(!this.isSetTotalCorrect(set, gridSize)) return false;
     return true;
   },
 

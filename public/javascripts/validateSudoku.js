@@ -27,7 +27,7 @@ module.exports = {
 
   checkSet: function(set, gridSize){
     if(set.length !== gridSize) return false;
-    if(! this.isSetTotalCorrect(set, gridSize)) return false;
+    if(!this.isSetTotalCorrect(set, gridSize)) return false;
     return true;
   },
 
