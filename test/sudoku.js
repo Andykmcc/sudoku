@@ -76,3 +76,10 @@ describe('incomplete row total', function () {
    done();
  });
 });
+
+describe('flatten sudoku column', function(){
+  it('should be [5,6,1,8,4,7,9,2,3]',function(done){
+    validateSudoku.flattenColumn(sudokus.valid, 0).should.containDeepOrdered([5,6,1,8,4,7,9,2,3]);
+    done();
+  });
+});

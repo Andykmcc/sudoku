@@ -56,7 +56,7 @@ module.exports = {
     var set = [];
 
     for(var i = 0, l = sudoku.length; i < l; i++){
-      set.push(sudoku[columnIndex][i]);
+      set.push(sudoku[i][columnIndex]);
     }
 
     return set;
