@@ -3,6 +3,34 @@ var should = require('should');
 var sudokus = require('./data/sudokus');
 var validateSudoku = require('../public/javascripts/validateSudoku');
 
+describe('valid sudoku', function () {
+  it('should be true', function (done) {
+    validateSudoku.validate(sudokus.valid, 9).should.be.exactly(true);
+    done();
+  });
+});
+
+describe('incomplete sudoku', function () {
+  it('should be false', function (done) {
+    validateSudoku.validate(sudokus.incomplete, 9).should.be.exactly(false);
+    done();
+  });
+});
+
+describe('duplicates sudoku', function () {
+  it('should be false', function (done) {
+    validateSudoku.validate(sudokus.duplicates, 9).should.be.exactly(false);
+    done();
+  });
+});
+
+describe('invalidBox sudoku', function () {
+  it('should be false', function (done) {
+    validateSudoku.validate(sudokus.invalidBox, 9).should.be.exactly(false);
+    done();
+  });
+});
+
 describe('valid column', function () {
  it('should be true', function (done) {
    validateSudoku.column(sudokus.valid, 0, 9).should.be.exactly(true);

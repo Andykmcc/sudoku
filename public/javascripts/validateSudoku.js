@@ -2,6 +2,21 @@
 
 module.exports = {
 
+  validate: function(sudoku, gridSize){
+    var valid = true;
+    for(var i = 0, l = sudoku.length; i < l; i++){
+      if(!this.row(sudoku, i, gridSize)){
+        valid = false;
+        break;
+      }
+      if(!this.column(sudoku, i, gridSize)){
+        valid = false;
+        break;
+      }
+    }
+    return valid;
+  },
+
   row: function(sudoku, rowIndex, gridSize){
     return this.checkSet(sudoku[rowIndex], gridSize);
   },
