@@ -5,28 +5,28 @@ var validateSudoku = require('../public/javascripts/validateSudoku');
 
 describe('valid row', function () {
  it('should be true', function (done) {
-   validateSudoku.row(sudokus.valid[0], 9).should.be.exactly(true);
+   validateSudoku.row(sudokus.valid, 0, 9).should.be.exactly(true);
    done();
  });
 });
 
 describe('incomplete row', function () {
  it('should be false', function (done) {
-   validateSudoku.row(sudokus.incomplete[0], 9).should.be.exactly(false);
+   validateSudoku.row(sudokus.incomplete, 0, 9).should.be.exactly(false);
    done();
  });
 });
 
 describe('duplicates row', function () {
  it('should be false', function (done) {
-   validateSudoku.row(sudokus.duplicates[0], 9).should.be.exactly(false);
+   validateSudoku.row(sudokus.duplicates, 0, 9).should.be.exactly(false);
    done();
  });
 });
 
 describe('invalidBox row', function () {
  it('should be false', function (done) {
-   validateSudoku.row(sudokus.invalidBox[0],9 ).should.be.exactly(false);
+   validateSudoku.row(sudokus.invalidBox, 0, 9).should.be.exactly(false);
    done();
  });
 });

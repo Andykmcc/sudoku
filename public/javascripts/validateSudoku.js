@@ -2,9 +2,17 @@
 
 module.exports = {
 
-  row: function(row, gridSize){
-    if(row.length !== gridSize) return false;
-    if(! this.isRowTotalCorrect(row, gridSize)) return false;
+  row: function(sudoku, rowIndex, gridSize){
+    return this.checkSet(sudoku[rowIndex], gridSize);
+  },
+
+  column: function(sudoku, columnIndex, gridSize){
+    return this.checkSet(this.flattenColumn(sudoku, columnIndex), gridSize)
+  },
+
+  checkSet: function(set, gridSize){
+    if(set.length !== gridSize) return false;
+    if(! this.isRowTotalCorrect(set, gridSize)) return false;
     return true;
   },
 
@@ -19,22 +27,22 @@ module.exports = {
     return total === desiredTotal;
   },
 
-  doesRowHaveDups: function(row){
-    var seen = {};
-    var dups = false;
+  // doesRowHaveDups: function(row){
+  //   var seen = {};
+  //   var dups = false;
 
-    for(var i = 0, l = row.length; i < l; i++){
-      if(seen[row[i]] === undefined){
-        seen[row[i]] = 1;
-      }
-      else{
-        seen[row[i]] = seen[row[i]]+1;
-        dups = true;
-      }
-    }
+  //   for(var i = 0, l = row.length; i < l; i++){
+  //     if(seen[row[i]] === undefined){
+  //       seen[row[i]] = 1;
+  //     }
+  //     else{
+  //       seen[row[i]] = seen[row[i]]+1;
+  //       dups = true;
+  //     }
+  //   }
 
-    return dups;
-  },
+  //   return dups;
+  // },
 
   getRowTotalFromGridSize: function(gridSize){
     var total = 0;
@@ -42,6 +50,16 @@ module.exports = {
       total += gridSize--;
     }
     return total;
+  },
+
+  flattenColumn: function(sudoku, columnIndex){
+    var set = [];
+
+    for(var i = 0, l = sudoku.length; i < l; i++){
+      set.push(sudoku[columnIndex][i]);
+    }
+
+    return set;
   }
 
 };
