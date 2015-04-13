@@ -1,6 +1,12 @@
-var validateSudoku = require('./validateSudoku');
+'use strict';
 var utilities = require('./utilities');
 
 module.exports = (function(){
-  console.log('hello world');
+  var sudoku = document.querySelector('.js-sudoku');
+
+  sudoku.addEventListener('submit', function(event){
+    event.preventDefault();
+    utilities.checkSudoku(event.target);
+  });
+
 })();

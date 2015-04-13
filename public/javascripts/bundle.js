@@ -1,15 +1,75 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var validateSudoku = require('./validateSudoku');
+'use strict';
 var utilities = require('./utilities');
 
 module.exports = (function(){
-  console.log('hello world');
-})();
-},{"./utilities":2,"./validateSudoku":3}],2:[function(require,module,exports){
-module.exports = {
+  var sudoku = document.querySelector('.js-sudoku');
+
+  sudoku.addEventListener('submit', function(event){
+    event.preventDefault();
+    utilities.checkSudoku(event.target);
+  }, false);
   
+})();
+},{"./utilities":2}],2:[function(require,module,exports){
+'use strict';
+var validateSudoku = require('./validateSudoku');
+
+module.exports = {
+
+  convertTableToArray: function(table){
+    var sudokuArr = [];
+    var rows = table.querySelectorAll('tr');
+
+    for(var i = 0, l = rows.length; i < l; i++){
+      var rowArr = [];
+      var row = rows[i];
+      var inputs = row.querySelectorAll('.js-input-number');
+      for(var j = 0, k = inputs.length; j < k; j++){
+        var input = inputs[j];
+        rowArr.push(input.value);
+      }
+      sudokuArr.push(rowArr);
+    }
+
+    return sudokuArr;
+  },
+
+  checkSudoku: function(sudoku){
+    var sudokuArr = this.convertTableToArray(sudoku);
+
+    if(validateSudoku.validate(sudokuArr)){
+      this.removeClass(sudoku, 'has-error');
+    }
+    else{
+      this.addClass(sudoku, 'has-error');
+    }
+  },
+
+  addClass: function(el, className){
+    if (el.classList){
+      el.classList.add(className);
+    }
+    else{
+      el.className += ' ' + className;
+    }
+
+    return el;
+  },
+
+  removeClass: function(el, className){
+    if (el.classList){
+      el.classList.remove(className);
+    }
+    else{
+      el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+    }
+
+    return el;
+  }
+
 };
-},{}],3:[function(require,module,exports){
+},{"./validateSudoku":3}],3:[function(require,module,exports){
 'use strict';
 
 module.exports = {
