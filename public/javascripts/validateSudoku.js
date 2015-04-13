@@ -12,16 +12,16 @@ module.exports = {
 
   checkSet: function(set, gridSize){
     if(set.length !== gridSize) return false;
-    if(! this.isRowTotalCorrect(set, gridSize)) return false;
+    if(! this.isSetTotalCorrect(set, gridSize)) return false;
     return true;
   },
 
-  isRowTotalCorrect: function(row, gridSize){
-    var desiredTotal = this.getRowTotalFromGridSize(gridSize);
+  isSetTotalCorrect: function(set, gridSize){
+    var desiredTotal = this.getSetTotalFromGridSize(gridSize);
     var total = 0;
 
-    for(var i = 0, l = row.length; i < l; i++){
-      total = total + row[i];
+    for(var i = 0, l = set.length; i < l; i++){
+      total = total + set[i];
     }
 
     return total === desiredTotal;
@@ -44,7 +44,7 @@ module.exports = {
   //   return dups;
   // },
 
-  getRowTotalFromGridSize: function(gridSize){
+  getSetTotalFromGridSize: function(gridSize){
     var total = 0;
     while(gridSize){
       total += gridSize--;

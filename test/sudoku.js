@@ -3,6 +3,27 @@ var should = require('should');
 var sudokus = require('./data/sudokus');
 var validateSudoku = require('../public/javascripts/validateSudoku');
 
+describe('valid column', function () {
+ it('should be true', function (done) {
+   validateSudoku.column(sudokus.valid, 0, 9).should.be.exactly(true);
+   done();
+ });
+});
+
+describe('incomplete column', function () {
+ it('should be false', function (done) {
+   validateSudoku.column(sudokus.duplicates, 0, 9).should.be.exactly(false);
+   done();
+ });
+});
+
+describe('invalidBox column', function () {
+ it('should be false', function (done) {
+   validateSudoku.column(sudokus.invalidBox, 0, 9).should.be.exactly(false);
+   done();
+ });
+});
+
 describe('valid row', function () {
  it('should be true', function (done) {
    validateSudoku.row(sudokus.valid, 0, 9).should.be.exactly(true);
@@ -33,25 +54,25 @@ describe('invalidBox row', function () {
 
 describe('get row total from grid size', function () {
  it('9x9 should be 45', function (done) {
-   validateSudoku.getRowTotalFromGridSize(9).should.equal(45);
+   validateSudoku.getSetTotalFromGridSize(9).should.equal(45);
    done();
  });
  it('3x3 should be 6', function (done) {
-   validateSudoku.getRowTotalFromGridSize(3).should.equal(6);
+   validateSudoku.getSetTotalFromGridSize(3).should.equal(6);
    done();
  });
 });
 
 describe('valid row total', function () {
  it('should be true', function (done) {
-   validateSudoku.isRowTotalCorrect(sudokus.valid[0], 9).should.be.exactly(true);
+   validateSudoku.isSetTotalCorrect(sudokus.valid[0], 9).should.be.exactly(true);
    done();
  });
 });
 
 describe('incomplete row total', function () {
  it('should be false', function (done) {
-   validateSudoku.isRowTotalCorrect(sudokus.incomplete[0], 9).should.be.exactly(false);
+   validateSudoku.isSetTotalCorrect(sudokus.incomplete[0], 9).should.be.exactly(false);
    done();
  });
 });
