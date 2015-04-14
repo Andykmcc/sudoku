@@ -71,3 +71,13 @@ body {
   width: 1em;
   padding: 5px;
 }
+
+.touch-number{
+  position: fixed;
+  font-size: 30em;
+  top:0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  opacity: 0.3
+}

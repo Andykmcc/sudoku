@@ -1,8 +1,10 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 var utilities = require('./utilities');
+var touchUtilities = new (require('./touchUtilities'))();
 
 module.exports = (function(){
+  var touchSupport = 'ontouchstart' in document.documentElement;
   var gridSize = 9;
   var sudoku = document.querySelector('.js-sudoku');
 
@@ -11,8 +13,63 @@ module.exports = (function(){
     utilities.checkSudoku(event.currentTarget, gridSize);
   });
 
+  if(touchSupport){
+    touchUtilities.init();
+  }
+
 })();
-},{"./utilities":2}],2:[function(require,module,exports){
+},{"./touchUtilities":2,"./utilities":3}],2:[function(require,module,exports){
+module.exports = function(){
+  'use strict';
+
+  var screenHeight = null;
+
+  var touchNumber = null;
+
+  var currentInput = null;
+
+  var touchMoveCallback = function(event){
+    var inputNumber = convertYToInput(event.targetTouches[0].clientY);
+
+    currentInput.value = touchNumber.textContent = inputNumber;
+    triggerChange(currentInput);
+    
+    return false;
+  };
+
+  var touchEndCallback = function(){
+    currentInput = touchNumber.textContent = null;
+  };
+
+  var touchStartCallback = function(event){
+    currentInput = event.target;
+  };
+
+  var convertYToInput = function(eventY){
+    var perc = Math.round((eventY/screenHeight) * 10) === 10 ? 9 : Math.round((eventY/screenHeight) * 10);
+    var x = perc === 0 ? 1 : perc;
+
+    return x;
+  };
+
+  var triggerChange = function(el){
+    var event = document.createEvent('HTMLEvents');
+    event.initEvent('change', true, false);
+    el.dispatchEvent(event);
+  };
+
+  this.init = function(){
+    screenHeight = window.innerHeight;
+    touchNumber = document.querySelector('.js-touch-number');
+
+    document.addEventListener('touchmove', touchMoveCallback);
+    document.addEventListener('touchend', touchEndCallback);
+    document.addEventListener('touchstart', touchStartCallback);
+  };
+
+};
+
+},{}],3:[function(require,module,exports){
 'use strict';
 var validateSudoku = require('./validateSudoku');
 
@@ -94,7 +151,7 @@ module.exports = {
   }
 
 };
-},{"./validateSudoku":3}],3:[function(require,module,exports){
+},{"./validateSudoku":4}],4:[function(require,module,exports){
 'use strict';
 
 module.exports = {
