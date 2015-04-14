@@ -2,18 +2,41 @@ body {
   font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
   margin: 0;
 }
+.sudoku{
+  text-align: center;
+}
+
+[class^="notice--"]{
+  display: none;
+  font-size: 3em;
+  margin: .3em 0;
+}
 
 .sudoku tr,
 .sudoku td{
   border-color: black;
 }
+
 .sudoku.has-error tr,
 .sudoku.has-error td{
   border-color: red;
 }
+
 .sudoku.is-finished tr,
 .sudoku.is-finished td{
   border-color: green;
+}
+
+.sudoku .notice--title{
+  display: block;
+}
+
+.sudoku.is-finished [class^="notice--title"]{
+  display: none;
+}
+
+.sudoku.is-finished [class^="notice--winner"]{
+  display: block;
 }
 
 .table{
