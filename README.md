@@ -14,6 +14,7 @@ I opted not to use jQuery or underscore/lodash because they are an extra 30kb th
 1. Clone the repo to your machine. 
 2. Run, `$ npm install`.
 3. Run, `$ npm start`.
+4. Open http://localhost:3000/ in your browser. 
 
 ## Test
 The sudoku business logic is tested via mocha. Use, `$ npm test` to run tests. 
