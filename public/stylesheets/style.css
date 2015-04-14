@@ -2,11 +2,6 @@ body {
   font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-.wrapper{
-  margin: 0 auto;
-  max-width: 960px;
-  width: 100%;
-}
 .sudoku tr,
 .sudoku td{
   border-color: black;
@@ -21,6 +16,7 @@ body {
 }
 
 .table{
+  margin: 0 auto;
   border-collapse: collapse;
 }
 
