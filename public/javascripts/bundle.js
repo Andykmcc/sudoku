@@ -4,21 +4,31 @@ var utilities = require('./utilities');
 var touchUtilities = new (require('./touchUtilities'))();
 
 module.exports = (function(){
+  // simple detection for touch support. not full proof but gets the ob done. 
   var touchSupport = 'ontouchstart' in document.documentElement;
+  // set grid size e.g. 9x9 or 3x3... etc. 
   var gridSize = 9;
+  // cache the puzzel DOM element. 
   var sudoku = document.querySelector('.js-sudoku');
 
+  // listen for changes that bubble up from inputs. 
   sudoku.addEventListener('change', function(event){
     event.preventDefault();
     utilities.checkSudoku(event.currentTarget, gridSize);
   });
 
+  // if touch is available enable the touch UI.
   if(touchSupport){
     touchUtilities.init();
   }
 
 })();
 },{"./touchUtilities":2,"./utilities":3}],2:[function(require,module,exports){
+/*
+  This is kind of exparimental. it is basically a way to 
+  do the sudoku without having contantly deal with the 
+  virtual keyboard popping up on the screen all the time. 
+ */
 module.exports = function(){
   'use strict';
 
@@ -33,8 +43,6 @@ module.exports = function(){
 
     currentInput.value = touchNumber.textContent = inputNumber;
     triggerChange(currentInput);
-    
-    return false;
   };
 
   var touchEndCallback = function(){
@@ -45,8 +53,11 @@ module.exports = function(){
     currentInput = event.target;
   };
 
+  // this function converts touches at the top of the screen to 9
+  // and touches at the bottom of the screen to 1 and the rest 
+  // fall between. 
   var convertYToInput = function(eventY){
-    var perc = Math.round((eventY/screenHeight) * 10) === 10 ? 9 : Math.round((eventY/screenHeight) * 10);
+    var perc = Math.round(((screenHeight-eventY)/screenHeight) * 10) === 10 ? 9 : Math.round(((screenHeight-eventY)/screenHeight) * 10);
     var x = perc === 0 ? 1 : perc;
 
     return x;
@@ -70,15 +81,22 @@ module.exports = function(){
 };
 
 },{}],3:[function(require,module,exports){
+/*
+  Various utility methods that deal with the DOM. 
+  Basically a few handy methods that would come 
+  with jQuery or zepto. 
+ */
 'use strict';
 var validateSudoku = require('./validateSudoku');
 
 module.exports = {
-
+  // converts the sudoku table into a 2D array. 
   convertTableToArray: function(table){
     var sudokuArr = [];
     var rows = table.querySelectorAll('tr');
 
+    // this could be done a a reduce but a simple for
+    // loop is for cross browser compat. and perf. 
     for(var i = 0, l = rows.length; i < l; i++){
       var rowArr = [];
       var row = rows[i];
@@ -89,22 +107,26 @@ module.exports = {
       }
       sudokuArr.push(rowArr);
     }
-
+    // return the 2D array.
     return sudokuArr;
   },
 
+  // this method determines if the sudoku is valid
   checkSudoku: function(sudoku, gridSize){
     var sudokuArr = this.convertTableToArray(sudoku);
 
     if(!this.isSudokuComplete(sudoku, gridSize)){
+      // if it is incomplete return styling to default state
       this.removeClass(sudoku, 'has-error');
       this.removeClass(sudoku, 'is-finished');
     }
     else if(validateSudoku.validate(sudokuArr, gridSize)){
+      // if complete and valid style with success styles. 
       this.removeClass(sudoku, 'has-error');
       this.addClass(sudoku, 'is-finished');
     }
     else{
+      // if complete but invalid add error styling. 
       this.addClass(sudoku, 'has-error');
       this.removeClass(sudoku, 'is-finished');
     }
@@ -132,6 +154,8 @@ module.exports = {
     return el;
   },
 
+  // returns an array or all the values in the sudoku.
+  // used as a faster way to check if sudoku is complete.
   getSudokuValues: function(sudoku){
     var inputs = sudoku.querySelectorAll('.js-input-number');
     var values = [];
@@ -152,6 +176,11 @@ module.exports = {
 
 };
 },{"./validateSudoku":4}],4:[function(require,module,exports){
+/*
+  There methods are not attached to the DOM. They are used
+  to verify the sudoku and can be easily tested beacuse 
+  they are simple computation, no DOM or AJAX.
+ */
 'use strict';
 
 module.exports = {

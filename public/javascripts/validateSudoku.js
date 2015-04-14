@@ -1,3 +1,8 @@
+/*
+  There methods are not attached to the DOM. They are used
+  to verify the sudoku and can be easily tested beacuse 
+  they are simple computation, no DOM or AJAX.
+ */
 'use strict';
 
 module.exports = {

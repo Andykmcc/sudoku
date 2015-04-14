@@ -1,3 +1,8 @@
+/*
+  This is kind of exparimental. it is basically a way to 
+  do the sudoku without having contantly deal with the 
+  virtual keyboard popping up on the screen all the time. 
+ */
 module.exports = function(){
   'use strict';
 
@@ -22,8 +27,11 @@ module.exports = function(){
     currentInput = event.target;
   };
 
+  // this function converts touches at the top of the screen to 9
+  // and touches at the bottom of the screen to 1 and the rest 
+  // fall between. 
   var convertYToInput = function(eventY){
-    var perc = Math.round((eventY/screenHeight) * 10) === 10 ? 9 : Math.round((eventY/screenHeight) * 10);
+    var perc = Math.round(((screenHeight-eventY)/screenHeight) * 10) === 10 ? 9 : Math.round(((screenHeight-eventY)/screenHeight) * 10);
     var x = perc === 0 ? 1 : perc;
 
     return x;
