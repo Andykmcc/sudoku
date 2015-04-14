@@ -7,6 +7,8 @@ The major tradeoff's I considered while writing this were between writing perfor
 
 I opted not to use jQuery or underscore/lodash because they are an extra 30kb that doesnt bring much to the table when only modern browsers must be considered. I chose not to use sass because I wasn't worried applying a consistant branch or needing to leverage mixin's to resolve cross browser issues. 
 
+If I had more time I would put more time into cleaning up the look and messaging or the puzzle. If i felt it was getting complex i would move to sass and at that point add grunt. 
+
 ## Requirements
 * Node.js
 
