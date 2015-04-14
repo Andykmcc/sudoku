@@ -1,8 +1,43 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+.wrapper{
+  margin: 0 auto;
+  max-width: 960px;
+  width: 100%;
+}
+
+.table {
+  border-collapse: collapse;
+  /*margin: 0 auto;*/
+}
+
+.table-cell{
+  border: 1px solid black;
+}
+
+.table-cell:nth-child(3n){
+  border-right: 3px solid black;
+}
+
+.table-cell:last-child{
+  border-right: 1px solid black;
+}
+
+.table-row:nth-child(3n){
+  border-bottom: 3px solid black;
+}
+
+.table-row:last-child{
+  border-bottom: 1px solid black;
+}
+
+.input-number{
+  border: 0;
+  height: 2em;
+  font-size: 1em;
+  padding: 6px 0 6px 12px;
+  text-align: center;
+  width: 2em;
 }
