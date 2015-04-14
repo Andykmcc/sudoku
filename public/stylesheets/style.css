@@ -1,5 +1,6 @@
 body {
   font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
 }
 
 .sudoku tr,
@@ -42,9 +43,8 @@ body {
 
 .input-number{
   border: 0;
-  height: 2em;
   font-size: 1em;
-  padding: 6px 0 6px 12px;
   text-align: center;
-  width: 2em;
+  width: 1em;
+  padding: 5px;
 }
