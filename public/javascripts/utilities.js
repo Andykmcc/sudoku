@@ -24,7 +24,10 @@ module.exports = {
   checkSudoku: function(sudoku, gridSize){
     var sudokuArr = this.convertTableToArray(sudoku);
 
-    if(validateSudoku.validate(sudokuArr, gridSize)){
+    if(!this.isSudokuComplete(sudoku, gridSize)){
+      this.removeClass(sudoku, 'has-error');
+    }
+    else if(validateSudoku.validate(sudokuArr, gridSize)){
       this.removeClass(sudoku, 'has-error');
     }
     else{
@@ -52,6 +55,24 @@ module.exports = {
     }
 
     return el;
+  },
+
+  getSudokuValues: function(sudoku){
+    var inputs = sudoku.querySelectorAll('.js-input-number');
+    var values = [];
+
+    for(var i = 0, l = inputs.length; i < l; i++){
+      var val = inputs[i].value;
+      if(val.length){
+        values.push(val);
+      }
+    }
+
+    return values;
+  },
+
+  isSudokuComplete: function(sudoku, gridSize){
+    return this.getSudokuValues(sudoku).length === (gridSize*gridSize)
   }
 
 };

@@ -42,23 +42,6 @@ module.exports = {
     return total === desiredTotal;
   },
 
-  // doesRowHaveDups: function(row){
-  //   var seen = {};
-  //   var dups = false;
-
-  //   for(var i = 0, l = row.length; i < l; i++){
-  //     if(seen[row[i]] === undefined){
-  //       seen[row[i]] = 1;
-  //     }
-  //     else{
-  //       seen[row[i]] = seen[row[i]]+1;
-  //       dups = true;
-  //     }
-  //   }
-
-  //   return dups;
-  // },
-
   getSetTotalFromGridSize: function(gridSize){
     var total = 0;
     while(gridSize){
