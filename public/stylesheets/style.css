@@ -7,29 +7,41 @@ body {
   max-width: 960px;
   width: 100%;
 }
+.sudoku tr,
+.sudoku td{
+  border-color: black;
+}
+.sudoku.has-error tr,
+.sudoku.has-error td{
+  border-color: red;
+}
+.sudoku.is-finished tr,
+.sudoku.is-finished td{
+  border-color: green;
+}
 
-.table {
+.table{
   border-collapse: collapse;
 }
 
 .table-cell{
-  border: 1px solid black;
+  border: 1px solid;
 }
 
 .table-cell:nth-child(3n){
-  border-right: 3px solid black;
+  border-right: 3px solid;
 }
 
 .table-cell:last-child{
-  border-right: 1px solid black;
+  border-right: 1px solid;
 }
 
 .table-row:nth-child(3n){
-  border-bottom: 3px solid black;
+  border-bottom: 3px solid;
 }
 
 .table-row:last-child{
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid;
 }
 
 .input-number{

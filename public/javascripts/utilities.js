@@ -26,12 +26,15 @@ module.exports = {
 
     if(!this.isSudokuComplete(sudoku, gridSize)){
       this.removeClass(sudoku, 'has-error');
+      this.removeClass(sudoku, 'is-finished');
     }
     else if(validateSudoku.validate(sudokuArr, gridSize)){
       this.removeClass(sudoku, 'has-error');
+      this.addClass(sudoku, 'is-finished');
     }
     else{
       this.addClass(sudoku, 'has-error');
+      this.removeClass(sudoku, 'is-finished');
     }
   },
 
